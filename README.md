@@ -6,10 +6,12 @@ Based on [Winter is Coming](https://github.com/johnpapa/vscode-winteriscoming) b
 
 It keeps the upstream language coverage while applying a custom workbench palette, TextMate rules, and semantic token colors.
 
-## Setup from source
+## Install
+
+[Install Winter has Come from the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=thomas-fazzari.winter-has-come), or run:
 
 ```bash
-make install
+code --install-extension thomas-fazzari.winter-has-come
 ```
 
 Then select **Winter has Come** from **Preferences: Color Theme**.

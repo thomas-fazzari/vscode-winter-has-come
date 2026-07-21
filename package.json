@@ -2,7 +2,8 @@
 	"name": "winter-has-come",
 	"displayName": "Winter has Come",
 	"description": "Custom dark blue theme based on Winter is Coming",
-	"version": "1.0.0",
+	"icon": "images/winter-has-come-icon.png",
+	"version": "1.0.1",
 	"publisher": "thomas-fazzari",
 	"license": "MIT",
 	"repository": {
