@@ -1,6 +1,12 @@
-# Winter is Coming theme Changelog
+# Winter has Come Changelog
 
-## Unreleased
+## 1.0.0 (2026-07-21)
+
+- Forked Winter is Coming 1.5.0.
+- Kept the Dark Blue - No Italics variant and upstream language coverage.
+- Added custom workbench, TextMate, and semantic token colors.
+
+## Upstream history
 
 <a name="1.5.0"></a>
 

@@ -1,68 +1,44 @@
 {
-  "name": "winteriscoming",
-  "displayName": "Winter is Coming Theme",
-  "description": "Preferred dark/light themes by John Papa",
-  "icon": "images/winteriscoming-icon.png",
-  "license": "SEE LICENSE IN LICENSE.md",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/johnpapa/vscode-winteriscoming.git"
-  },
-  "galleryBanner": {
-    "color": "#373436",
-    "theme": "dark"
-  },
-  "version": "1.5.0",
-  "publisher": "johnpapa",
-  "keywords": [
-    "Theme",
-    "Dark Theme",
-    "Light Theme"
-  ],
-  "scripts": {
-    "list": "npx vsce ls",
-    "package": "npx vsce package",
-    "publish": "npx vsce publish"
-  },
-  "engines": {
-    "vscode": "^1.17.0"
-  },
-  "categories": [
-    "Themes",
-    "Other"
-  ],
-  "contributes": {
-    "themes": [
-      {
-        "label": "Winter is Coming (Dark Blue)",
-        "uiTheme": "vs-dark",
-        "path": "./themes/WinterIsComing-dark-blue-color-theme.json"
-      },
-      {
-        "label": "Winter is Coming (Dark Blue - No Italics)",
-        "uiTheme": "vs-dark",
-        "path": "./themes/WinterIsComing-dark-blue-color-no-italics-theme.json"
-      },
-      {
-        "label": "Winter is Coming (Light)",
-        "uiTheme": "vs",
-        "path": "./themes/WinterIsComing-light-color-theme.json"
-      },
-      {
-        "label": "Winter is Coming (Light - No Italics)",
-        "uiTheme": "vs",
-        "path": "./themes/WinterIsComing-light-color-no-italics-theme.json"
-      },
-      {
-        "label": "Winter is Coming (Dark Black)",
-        "uiTheme": "vs-dark",
-        "path": "./themes/WinterIsComing-dark-color-theme.json"
-      },
-      {
-        "label": "Winter is Coming (Dark Black - No Italics)",
-        "uiTheme": "vs-dark",
-        "path": "./themes/WinterIsComing-dark-color-no-italics-theme.json"
-      }
-    ]
-  }
+	"name": "winter-has-come",
+	"displayName": "Winter has Come",
+	"description": "Custom dark blue theme based on Winter is Coming",
+	"version": "1.0.0",
+	"publisher": "thomas-fazzari",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/thomas-fazzari/vscode-winter-has-come.git"
+	},
+	"galleryBanner": {
+		"color": "#011627",
+		"theme": "dark"
+	},
+	"keywords": [
+		"Theme",
+		"Dark Theme",
+		"Winter is Coming"
+	],
+	"scripts": {
+		"list": "vsce ls",
+		"package": "vsce package",
+		"publish": "vsce publish"
+	},
+	"engines": {
+		"vscode": "^1.100.0"
+	},
+	"categories": [
+		"Themes"
+	],
+	"contributes": {
+		"themes": [
+			{
+				"label": "Winter has Come",
+				"uiTheme": "vs-dark",
+				"path": "./themes/WinterIsComing-dark-blue-color-no-italics-theme.json"
+			}
+		]
+	},
+	"devDependencies": {
+		"@vscode/vsce": "3.9.2"
+	}
 }

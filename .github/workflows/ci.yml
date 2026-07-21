@@ -2,31 +2,78 @@ name: CI
 
 on:
   pull_request:
-    paths-ignore:
-      - '**.md'
-      - 'images/**'
-      - 'LICENSE.md'
-      - '.gitignore'
   push:
-    branches: [master]
-    paths-ignore:
-      - '**.md'
-      - 'images/**'
-      - 'LICENSE.md'
-      - '.gitignore'
+    branches: [main]
+    tags: ["v*.*.*"]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   package:
-    name: Package Extension
+    name: Package extension
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-
       - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run package -- --out winter-has-come.vsix
 
-      - run: npx @vscode/vsce package --no-dependencies
+  resolve-marketplace-identity:
+    name: Resolve Marketplace identity
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: marketplace
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Print Marketplace identity resource ID
+        shell: bash
+        run: |
+          profile_id=$(az rest \
+            --url https://app.vssps.visualstudio.com/_apis/profile/profiles/me \
+            --resource 499b84ac-1321-427f-aa17-267ca6975798 \
+            --query id \
+            --output tsv)
+          echo "Marketplace identity resource ID: \`$profile_id\`" >> "$GITHUB_STEP_SUMMARY"
+
+  release:
+    name: Publish extension
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: package
+    runs-on: ubuntu-latest
+    environment: marketplace
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Verify tag matches package version
+        shell: bash
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+      - uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - run: npm run publish -- --azure-credential
+      - run: npm run package -- --out winter-has-come.vsix
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" winter-has-come.vsix --generate-notes --title "$GITHUB_REF_NAME"
